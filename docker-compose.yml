@@ -1,0 +1,20 @@
+version: '2'
+services:
+  bitlbee:
+    image: bitlbee:latest
+    build: bitlbee/
+    volumes:
+      - ./data/bitlbee:/var/lib/bitlbee
+
+  znc:
+    image: znc:latest
+    build: znc/
+    ports:
+      - '6667:6667'
+      - '6697:6697'
+    volumes:
+      - ./data/znc:/var/lib/znc
+    depends_on:
+      - bitlbee
+    links:
+      - bitlbee:bitlbee
