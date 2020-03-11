@@ -10,7 +10,7 @@ ENV PLAYBACK_URL https://github.com/jpnurmi/znc-playback/archive/master.zip
 ENV CLIENTBUFFER_URL https://github.com/jpnurmi/znc-clientbuffer/archive/master.zip
 
 # Append if desired: znc-modperl znc-modpython znc-modtcl
-RUN apk --update add build-base openssl-dev wget unzip ca-certificates znc znc-dev znc-extra && \
+RUN apk --update add build-base openssl-dev wget unzip ca-certificates znc znc-dev znc-extra icu-dev zlib-dev && \
     chown znc:znc /var/lib/znc && \
     wget -O /tmp/palaver.zip $PALAVER_URL && \
     unzip /tmp/palaver.zip -d /tmp && \
