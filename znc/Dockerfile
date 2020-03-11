@@ -11,6 +11,8 @@ ENV CLIENTBUFFER_URL https://github.com/jpnurmi/znc-clientbuffer/archive/master.
 
 # Append if desired: znc-modperl znc-modpython znc-modtcl
 RUN apk --update add build-base openssl-dev wget unzip ca-certificates znc znc-dev znc-extra icu-dev zlib-dev && \
+    echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories && \
+    apk --no-cache add shadow && usermod -u 1000 znc && \
     chown znc:znc /var/lib/znc && \
     wget -O /tmp/palaver.zip $PALAVER_URL && \
     unzip /tmp/palaver.zip -d /tmp && \
@@ -34,4 +36,6 @@ RUN apk --update add build-base openssl-dev wget unzip ca-certificates znc znc-d
 USER znc
 VOLUME ["/var/lib/znc"]
 
-ENTRYPOINT ["znc", "--foreground", "--datadir=/var/lib/znc"]
+ENTRYPOINT ["znc", "--debug", "--foreground", "--datadir=/var/lib/znc"]
+# ENTRYPOINT ["znc", "--foreground", "--datadir=/var/lib/znc", "--makeconf"]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
